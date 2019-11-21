@@ -1,0 +1,55 @@
+Release Informationen zu "Extrudersteuerung.ino"
+
+
+
+v0.5
+21.11.2019      20:45
+
+Alle Dateien (außer Videos) auf https://github.com/Jknaebel68/Extruder verschoben
+FastPID.h includiert
+Timer gesteuerter Aufruf der Block- und Düsenheizungsregelung erstellt
+Kompilieren -ok-
+
+---------------------------------------------------------------------
+
+v0.4
+19.11.2019      20:12
+
+MAX6675.h und SimpleTimer.h includiert
+getTemp() Funktion zur Temperaturerfassung erstellt
+SwitchCaseAnzeige() aktualisiert
+Aufruf von SwitchCaseAnzeige() aktualisiert
+Kompilieren -ok-
+
+---------------------------------------------------------------------
+
+v0.3
+10.11.2019      17:50
+
+Schnittstellen und Datenübertragung zwischen Arduino und HMI programmiert und getestet
+Aktualisierungsrate der Anzeige alle 500ms einen Zyklus lang. 
+Diverse Korrekturen an der Definition der Buttons
+NexConfig.h geändert dbSerial auf DISABLE und nexSerial auf Serial 3. Serial zum Debuggen benutzt, Lib neu auf GDrive geladen
+E/A Definitionen eingefügt
+
+---------------------------------------------------------------------
+
+v0.2
+05.11.2019      20:08
+
+Code aufgehübscht;
+überflüssige Libraries entfernt;
+Nextion Definitionen in "Nextion_Defs.h" ausgelagert;
+Kompilieren -ok-
+
+---------------------------------------------------------------------
+
+v0.1
+04.11.2019      19:15
+
+Ideen von Jörg zur Dateiablage übernommen und eingefügt;
+
+---------------------------------------------------------------------
+
+
+

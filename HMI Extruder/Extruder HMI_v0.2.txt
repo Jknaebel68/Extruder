@@ -1,0 +1,18 @@
+Release Informationen zu "Extruder_HMI.HMI"
+
+---------------------------------------------------------------------
+
+v0.2
+10.11.2019    17.50
+
+Schnittstellen zwischen Arduino und HMI programmiert
+Button zur Wertübernahme auf Page 2 eingefügt weil das Touch Release beim Slider nicht funktioniert.
+Diverse Korrekturen weil der Haken Send Command vergessen wurde.
+
+---------------------------------------------------------------------
+
+v0.1
+04.11.2019     19.15
+Ideen von Jörg zur Dateiablage übernommen und eingefügt.
+
+---------------------------------------------------------------------
