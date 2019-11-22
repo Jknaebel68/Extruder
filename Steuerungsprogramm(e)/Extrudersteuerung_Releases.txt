@@ -6,8 +6,9 @@ v0.5
 21.11.2019      20:45
 
 Alle Dateien (außer Videos) auf https://github.com/Jknaebel68/Extruder verschoben
-FastPID.h includiert
+FastPID.h und Wire.h includiert
 Timer gesteuerter Aufruf der Block- und Düsenheizungsregelung erstellt
+Funktion zur Übermittlung von Freigabe und Drehzahl per I2C an NANO erstellt
 Kompilieren -ok-
 
 ---------------------------------------------------------------------

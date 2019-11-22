@@ -12,6 +12,7 @@
 #include <MAX6675.h>
 #include <SimpleTimer.h>
 #include <FastPID.h>
+#include <Wire.h>
 
 
 
@@ -106,6 +107,9 @@ void setup()
 
   timer_1.setInterval(1000);    // timer_1 auf 1s gesetzt
   timer_2.setInterval(100);     // timer_2 auf 100ms gesetzt
+
+  // I2C begin
+  Wire.begin();
   
   //Serial.begin(9600);
   nexSerial.begin(9600);
@@ -202,6 +206,13 @@ void getTemp()    // Temperaturen ablesen
   iTmpDs = (int)(fTmpDs + .5);
 }
 
+void nanoWrite()
+{
+  Wire.beginTransmission(2);  // Übertragung an Device #2
+  Wire.write(iVExtruder);   // Sollwert Drehzahl Extrdr an NANO senden
+  Wire.write(bExtruder);    // Antriebsfreigabe an NANO senden
+  Wire.endTransmission();
+}
 
 void SwitchCaseAnzeige()    // Daten zur aktiven Seite senden
 {
@@ -322,7 +333,9 @@ void b13PushCallback(void *ptr)		// Da die Datenübertragung der Werte mit den S
   uint32_t number = 0;
   n3.getValue(&number);			// Abfrage des Wertes Soll Extrudergeschwindigkeit
   iVExtruder = number;			// Übertragen von Temp in Variable
+  nanoWrite();              // Freigabe und Drehzahl an NANO senden
   delay(5);
+  
   n4.getValue(&number);			// Abfrage des Wertes Soll Düsentemperatur
   iTempSollDuese = number;		// Übertragen von Temp in Variable
   delay(5);
@@ -347,6 +360,7 @@ void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
   {
     bExtruder = true;
   }
+  nanoWrite();   // Freigabe und Drehzahl an NANO senden
 
   /* if (bExtruder)
     {
