@@ -150,12 +150,14 @@ void setup()
   /*------------------------------------
     PinModeeingaben
     ------------------------------------*/
-
+  pinMode(pHeizungDuese, OUTPUT);
+  pinMode(pHeizungHeizblock, OUTPUT);
 
   /*------------------------------------
     Vordefinieren von Eingängen und Ausgängen
     ------------------------------------*/
-  Serial.println("Setup done");
+    getTemp();                              // Einmal Auslesen der Temperatur damit nach dem Einschalten sichtbar ist ob die Heizung heiß ist !! Sicherheit !!
+    //Serial.println("Setup done");
 }
 
 //  Add the main program code into the continuous loop() function
@@ -166,6 +168,10 @@ void loop()
 // SwitchCaseAnzeige() aufrufen
   if (timer_1.isReady())
   {
+    if ((iTmpDs > 40) && (iTmpBlck > 40) && !bHeizung)  // Damit die Temperatur nach dem Ausschalten der Heizung weiter gelesen wird bis unter 40°C
+		{
+			getTemp();
+		}
     SwitchCaseAnzeige();
     timer_1.reset();
   }
