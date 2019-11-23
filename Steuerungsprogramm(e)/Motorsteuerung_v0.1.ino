@@ -1,13 +1,35 @@
 #include<Wire.h>
+#define pMotortakt 11
+#define pFreigabe 12
 
-
+int iVExtruder = 0;
+bool bExtruder = false;
+unsigned int uiPause = 48000;   // Delay von 48000 Mikrosekunden -> 1%
 
 void setup() {
-  // put your setup code here, to run once:
-
+  pinMode (pMotortakt, OUTPUT);
+  pinMode (pFreigabe, OUTPUT);
+  Wire.begin(2);
+  Wire.onReceive(get_Motor_Parameter);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
+  if (bExtruder = true) {
+    digitalWrite(pFreigabe, LOW);
+    digitalWrite(pMotortakt, HIGH);
+    delayMicroseconds(2);
+    digitalWrite(pMotortakt, LOW);
+    delayMicroseconds(uiPause);
+  }
+  else {
+    digitalWrite(pFreigabe, HIGH);
+  }
+
+}
+
+void get_Motor_Parameter(int howMany) {
+  iVExtruder = Wire.read();
+  bExtruder = Wire.read();
+  uiPause = 48000 / iVExtruder;
 }
