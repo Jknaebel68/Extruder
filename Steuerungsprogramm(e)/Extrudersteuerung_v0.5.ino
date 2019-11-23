@@ -171,7 +171,7 @@ void loop()
   }
 
 // PID Heizungsregelungen aufufen
-  if (timer_2.isReady())
+  if (timer_2.isReady() && bHeizung)
   {
     getTemp();
     if (iTmpBlck < (iTempSollHeizblock * 0.9))
@@ -379,6 +379,8 @@ void bt1PushCallback(void *ptr)    //  Ein/Aus Heizung
   if (number == 0)
   {
     bHeizung = false;
+    digitalWrite(pHeizungDuese, LOW);
+    digitalWrite(pHeizungHeizblock, LOW);
   }
   else if (number == 1)
   {
