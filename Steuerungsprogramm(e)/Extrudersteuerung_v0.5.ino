@@ -1,7 +1,7 @@
 /*
     Name:     Extrudersteuerung.ino
     Version:  v0.5
-    Created:	21.11.2019  20:33
+    Created:	25.11.2019  18:32
     Author:   Joachim Rüber &	Jörg Knaebel
 
 */
@@ -13,8 +13,6 @@
 #include <SimpleTimer.h>
 #include <FastPID.h>
 #include <Wire.h>
-
-
 
 // Nextion
 int iNexpage = 0;					//  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
@@ -51,7 +49,6 @@ int iZaehler1 = 0;
 int iZaehler2 = 0;
 int iZaehler3 = 0;
 bool bTaktmin = false;
-
 
 //  Listen to buttons, sliders, etc.
 NexTouch *nex_listen_list[] =
@@ -98,13 +95,15 @@ SimpleTimer timer_2;     // Timer_2 Aufruf PID-Regler
 FastPID myPID_Blck(Kp_Blck, Ki_Blck, Kd_Blck, Hz_Blck, output_bits_Blck, output_signed_Blck);
 FastPID myPID_Ds(Kp_Ds, Ki_Ds, Kd_Ds, Hz_Ds, output_bits_Ds, output_signed_Ds);
 
-
-
 //  The setup() function runs once each time the micro-controller starts
 void setup()
 {
-
-
+/*------------------------------------
+    PinMode Definitionen
+    ------------------------------------*/
+  pinMode(pHeizungDuese, OUTPUT);
+  pinMode(pHeizungHeizblock, OUTPUT);
+	
   timer_1.setInterval(1000);    // timer_1 auf 1s gesetzt
   timer_2.setInterval(100);     // timer_2 auf 100ms gesetzt
 
@@ -129,38 +128,32 @@ void setup()
   b11.attachPush(b11PushCallback, &b11);
   b12.attachPush(b12PushCallback, &b12);
   b13.attachPush(b13PushCallback, &b13);
+
   /*------------------------------------
     Platzhalter für weitere Buttons
     ------------------------------------*/
   bt0.attachPush(bt0PushCallback, &bt0);
   bt1.attachPush(bt1PushCallback, &bt1);
   bt2.attachPush(bt2PushCallback, &bt2);
+	
   /*------------------------------------
     Platzhalter für weitere Dual State Buttons
     ------------------------------------*/
   n0.attachPush(n0PushCallback, &n0);
   n1.attachPush(n1PushCallback, &n1);
   n2.attachPush(n2PushCallback, &n2);
+	
   /*------------------------------------
     Platzhalter für weitere Number anzeigen mit Touchfunktion
     ------------------------------------*/
   h0.attachPop(h0PopCallback, &h0);				//  Geschwindigkeit Motor Extruder 0-100%
   h1.attachPop(h1PopCallback, &h1);				//  Temperatur Heizblock 0-230°c
   h2.attachPop(h2PopCallback, &h2);				//  Temperatur Düse 0-250°C
-  /*------------------------------------
-    PinModeeingaben
-    ------------------------------------*/
-  pinMode(pHeizungDuese, OUTPUT);
-  pinMode(pHeizungHeizblock, OUTPUT);
-
-  /*------------------------------------
-    Vordefinieren von Eingängen und Ausgängen
-    ------------------------------------*/
-    getTemp();                              // Einmal Auslesen der Temperatur damit nach dem Einschalten sichtbar ist ob die Heizung heiß ist !! Sicherheit !!
-    //Serial.println("Setup done");
+  
+  //Serial.println("Setup done");
+	
 }
 
-//  Add the main program code into the continuous loop() function
 void loop()
 {
   nexLoop(nex_listen_list);
@@ -168,10 +161,6 @@ void loop()
 // SwitchCaseAnzeige() aufrufen
   if (timer_1.isReady())
   {
-    if ((iTmpDs > 40) && (iTmpBlck > 40) && !bHeizung)  // Damit die Temperatur nach dem Ausschalten der Heizung weiter gelesen wird bis unter 40°C
-		{
-			getTemp();
-		}
     SwitchCaseAnzeige();
     timer_1.reset();
   }
@@ -224,27 +213,24 @@ void SwitchCaseAnzeige()    // Daten zur aktiven Seite senden
 {
   switch (iNexpage)
   {
-    case 0:
-      // Anzeigen übertragen auf Page 0  Home
+    case 0:	// Anzeigen übertragen auf Page 0  Home
+      getTemp();	// Immer aktuelle Temperaturen anzeigen. Sicherheit!!
       n0.setValue(iTmpDs);
       n1.setValue(iTmpBlck);
       n2.setValue(iVExtruder);
       break;
-    case 1:
-      // Anzeigen übertragen auf Page 1  Setup Geschwindigkeit Temperatur
+    case 1:      // Anzeigen übertragen auf Page 1  Setup Geschwindigkeit Temperatur
+      getTemp();	// Immer aktuelle Temperaturen anzeigen. Sicherheit!!
       n6.setValue(iVExtruder);
       n7.setValue(iTmpDs);
       n8.setValue(iTmpBlck);
       break;
-    case 2:
-      // Anzeigen übertragen auf Page 2  Setup Aufwicklung
+    case 2:      // Anzeigen übertragen auf Page 2  Setup Aufwicklung
       break;
-    case 3:
-      // Anzeigen übertragen auf Page 3  Datensatz
+    case 3:      // Anzeigen übertragen auf Page 3  Datensatz
       break;
-    case 4:
-      // Anzeigen übertragen auf Page 4  Stromanzeige und Referenzieren
-      // Es gibt in der Libary keine .h für die Float anzeige, deshalb dies Methode
+    case 4:      // Anzeigen übertragen auf Page 4  Stromanzeige und Referenzieren
+      		 // Es gibt in der Libary keine .h für die Float anzeige, deshalb dies Methode
       nexSerial.print("x0.val=\"");
       nexSerial.print(lAMotor);
       nexSerial.write('"');
@@ -258,8 +244,8 @@ void SwitchCaseAnzeige()    // Daten zur aktiven Seite senden
       nexSerial.write('"');
       nexSerial.write(NexT, 3);
       break;
-    case 5:
-      // Anzeigen übertragen auf Page 5  Osziloskop Strom Temp usw
+    case 5:      // Anzeigen übertragen auf Page 5  Osziloskop Strom Temp usw
+      getTemp();
       s0.addValue(0, iTmpBlck);
       break;
 
@@ -347,11 +333,6 @@ void b13PushCallback(void *ptr)		// Da die Datenübertragung der Werte mit den S
   delay(5);
   n5.getValue(&number);			// Abfrage des Wertes Soll Heizblocktemperatur
   iTempSollHeizblock = number;	// Übertragen von Temp in Variable
-
-  //Serial.println("Werte übernommen");	// Anzeige zum Debuggen
-  //Serial.println(iVExtruder);
-  //Serial.println(iTempSollDuese);
-  //Serial.println(iTempSollHeizblock);
 }
 
 void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
@@ -368,14 +349,6 @@ void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
   }
   nanoWrite();   // Freigabe und Drehzahl an NANO senden
 
-  /* if (bExtruder)
-    {
-    Serial.println("Extruder ein");
-    }
-    else
-    {
-    Serial.println("Extruder aus");
-    }*/
 }
 
 void bt1PushCallback(void *ptr)    //  Ein/Aus Heizung
@@ -392,14 +365,6 @@ void bt1PushCallback(void *ptr)    //  Ein/Aus Heizung
   {
     bHeizung = true;
   }
-  /*if (bHeizung)
-    {
-  	Serial.println("Heizung ein");
-    }
-    else
-    {
-  	Serial.println("Heizung aus");
-    }*/
 }
 
 void bt2PushCallback(void *ptr)   //  Ein/Aus Kühlung
