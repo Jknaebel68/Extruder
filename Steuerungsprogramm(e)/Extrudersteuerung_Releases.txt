@@ -2,6 +2,19 @@ Release Informationen zu "Extrudersteuerung.ino"
 
 
 
+---------------------------------------------------------------------
+
+v0.6
+25.11.2019      20:15
+
+EEprom Zugriff teilweise integriert
+EEPROM.h includiert
+Datensatzstruktur angelegt
+Kompilieren -ok-
+!!! Joachim bitte schauen wo die Datensatz Sache integriert werden soll. Danke !!!
+
+---------------------------------------------------------------------
+
 v0.5
 21.11.2019      20:45
 

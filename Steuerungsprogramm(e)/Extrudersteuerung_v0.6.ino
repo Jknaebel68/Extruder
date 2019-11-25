@@ -1,7 +1,8 @@
+
 /*
     Name:     Extrudersteuerung.ino
-    Version:  v0.5
-    Created:	25.11.2019  18:32
+    Version:  v0.6
+    Created:	25.11.2019  20:12
     Author:   Joachim Rüber &	Jörg Knaebel
 
 */
@@ -13,6 +14,7 @@
 #include <SimpleTimer.h>
 #include <FastPID.h>
 #include <Wire.h>
+#include <EEPROM.h>
 
 // Nextion
 int iNexpage = 0;					//  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
@@ -26,18 +28,19 @@ long lAMotor = 0;					//  Iststrom Motor Extruder über ACS712 gemessen Berechnu
 long lAmpHeizblock = 0;				//  Iststrom Heizung Heizblock über ACS712 gemessen
 long lAmpDuese = 0;					//  Iststrom Heizung Düse über ACS712 gemessen
 byte NexT[3] = { 255, 255, 255 };
+byte bError_num = 0;
 
 // Temperaturmessung
 float fTmpBlck, fTmpDs;     // gemessene float - Temperaturen
 int iTmpBlck, iTmpDs;       // umgewandelte int - Temperaturen
 
 // PID-Regler Block
-float Kp_Blck=0.1, Ki_Blck=0.5, Kd_Blck=0, Hz_Blck=10;
+float Kp_Blck = 0.1, Ki_Blck = 0.5, Kd_Blck = 0, Hz_Blck = 10;
 int output_bits_Blck = 1;
 bool output_signed_Blck = false;
 
 // PID-Regler Düse
-float Kp_Ds=0.1, Ki_Ds=0.5, Kd_Ds=0, Hz_Ds=10;
+float Kp_Ds = 0.1, Ki_Ds = 0.5, Kd_Ds = 0, Hz_Ds = 10;
 int output_bits_Ds = 1;
 bool output_signed_Ds = false;
 
@@ -49,6 +52,17 @@ int iZaehler1 = 0;
 int iZaehler2 = 0;
 int iZaehler3 = 0;
 bool bTaktmin = false;
+
+// EEprom
+int iAdresse = 0;
+int iZaehler = 0;
+struct Rezept
+{
+  char cBezeichnung[19];
+  int iEETempHb;
+  int iEETempDs;
+  int iEEVExtruder;
+};
 
 //  Listen to buttons, sliders, etc.
 NexTouch *nex_listen_list[] =
@@ -98,21 +112,25 @@ FastPID myPID_Ds(Kp_Ds, Ki_Ds, Kd_Ds, Hz_Ds, output_bits_Ds, output_signed_Ds);
 //  The setup() function runs once each time the micro-controller starts
 void setup()
 {
-/*------------------------------------
-    PinMode Definitionen
-    ------------------------------------*/
+
+  iZaehler = EEPROM.read(iAdresse); // Anzahl der vorhandenen Datensätze einlesen
+  iAdresse += 1;                    // Adresszähler um "1" erhöhen.
+
+  /*------------------------------------
+      PinMode Definitionen
+      ------------------------------------*/
   pinMode(pHeizungDuese, OUTPUT);
   pinMode(pHeizungHeizblock, OUTPUT);
-	
+
   timer_1.setInterval(1000);    // timer_1 auf 1s gesetzt
   timer_2.setInterval(100);     // timer_2 auf 100ms gesetzt
 
   // I2C begin
   Wire.begin();
-  
+
   //Serial.begin(9600);
   nexSerial.begin(9600);
-  
+
   nexInit();
   b0.attachPush(b0PushCallback, &b0);     //  Button press
   b1.attachPush(b1PushCallback, &b1);
@@ -135,43 +153,43 @@ void setup()
   bt0.attachPush(bt0PushCallback, &bt0);
   bt1.attachPush(bt1PushCallback, &bt1);
   bt2.attachPush(bt2PushCallback, &bt2);
-	
+
   /*------------------------------------
     Platzhalter für weitere Dual State Buttons
     ------------------------------------*/
   n0.attachPush(n0PushCallback, &n0);
   n1.attachPush(n1PushCallback, &n1);
   n2.attachPush(n2PushCallback, &n2);
-	
+
   /*------------------------------------
     Platzhalter für weitere Number anzeigen mit Touchfunktion
     ------------------------------------*/
   h0.attachPop(h0PopCallback, &h0);				//  Geschwindigkeit Motor Extruder 0-100%
   h1.attachPop(h1PopCallback, &h1);				//  Temperatur Heizblock 0-230°c
   h2.attachPop(h2PopCallback, &h2);				//  Temperatur Düse 0-250°C
-  
+
   //Serial.println("Setup done");
-	
+
 }
 
 void loop()
 {
   nexLoop(nex_listen_list);
 
-// SwitchCaseAnzeige() aufrufen
+  // SwitchCaseAnzeige() aufrufen
   if (timer_1.isReady())
   {
     SwitchCaseAnzeige();
     timer_1.reset();
   }
 
-// PID Heizungsregelungen aufufen
+  // PID Heizungsregelungen aufufen
   if (timer_2.isReady() && bHeizung)
   {
     getTemp();
     if (iTmpBlck < (iTempSollHeizblock * 0.9))
     {
-      digitalWrite(pHeizungHeizblock,HIGH);
+      digitalWrite(pHeizungHeizblock, HIGH);
       myPID_Blck.clear();
     }
     else
@@ -181,7 +199,7 @@ void loop()
 
     if (iTmpDs < (iTempSollDuese * 0.9))
     {
-      digitalWrite(pHeizungDuese,HIGH);
+      digitalWrite(pHeizungDuese, HIGH);
       myPID_Ds.clear();
     }
     else
@@ -191,8 +209,8 @@ void loop()
     timer_2.reset();
   }
 }
-    
- 
+
+
 void getTemp()    // Temperaturen ablesen
 {
   fTmpBlck = tmpBlck.readTempC();
@@ -230,7 +248,7 @@ void SwitchCaseAnzeige()    // Daten zur aktiven Seite senden
     case 3:      // Anzeigen übertragen auf Page 3  Datensatz
       break;
     case 4:      // Anzeigen übertragen auf Page 4  Stromanzeige und Referenzieren
-      		 // Es gibt in der Libary keine .h für die Float anzeige, deshalb dies Methode
+      // Es gibt in der Libary keine .h für die Float anzeige, deshalb dies Methode
       nexSerial.print("x0.val=\"");
       nexSerial.print(lAMotor);
       nexSerial.write('"');
@@ -327,7 +345,7 @@ void b13PushCallback(void *ptr)		// Da die Datenübertragung der Werte mit den S
   iVExtruder = number;			// Übertragen von Temp in Variable
   nanoWrite();              // Freigabe und Drehzahl an NANO senden
   delay(5);
-  
+
   n4.getValue(&number);			// Abfrage des Wertes Soll Düsentemperatur
   iTempSollDuese = number;		// Übertragen von Temp in Variable
   delay(5);
