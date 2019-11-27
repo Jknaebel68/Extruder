@@ -21,6 +21,7 @@ int iNexpage = 0;					//  Merker welche Seite auf dem Display angezeigt wird, da
 bool bExtruder = false;			//  Merker Extrudermotor false = aus true = ein
 bool bHeizung = false;			//  Merker Heizung false = aus true = ein
 bool bKuehlung = false;			//  Merker Kühlung false = aus true = ein
+int iMaterialart = 0;            // Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
 int iVExtruder = 0;					//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
 int iTempSollHeizblock = 0;			//  Soll Temperatur Heizblock
 int iTempSollDuese = 0;				//  Soll Temperatur Düse
@@ -81,6 +82,8 @@ NexTouch *nex_listen_list[] =
   &b11,
   &b12,
   &b13,
+  &b14,
+  &b15
   &bt0,
   &bt1,
   &bt2,
@@ -93,6 +96,7 @@ NexTouch *nex_listen_list[] =
   &h0,
   &h1,
   &h2,
+  &va6
   &page0,
   &page1,
   &page2,
@@ -146,6 +150,8 @@ void setup()
   b11.attachPush(b11PushCallback, &b11);
   b12.attachPush(b12PushCallback, &b12);
   b13.attachPush(b13PushCallback, &b13);
+  b14.attachPush(b13PushCallback, &b14);
+  b15.attachPush(b13PushCallback, &b15);
 
   /*------------------------------------
     Platzhalter für weitere Buttons
@@ -351,6 +357,19 @@ void b13PushCallback(void *ptr)		// Da die Datenübertragung der Werte mit den S
   delay(5);
   n5.getValue(&number);			// Abfrage des Wertes Soll Heizblocktemperatur
   iTempSollHeizblock = number;	// Übertragen von Temp in Variable
+}
+
+void b14PushCallback(void *ptr)		// Button zum speichern eines Datensatzes Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM 
+{
+  uint32_t number = 0;              // Hier wird der Wert der Variable für die Materialart abgerufen
+  va6.getValue(&number);
+  iMaterialart = number;
+  // Hiernach kann dann das Abspeichern der relevaten Daten erfolgen
+}
+
+void b15PushCallback(void *ptr)		// Button zum Laden eines Datensatzes es fehlt noch ein Auswahlmenü 
+{
+  // Absprache erforderlich eventuell machen wir eine Seite für Speichern und eine zum Laden ????
 }
 
 void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
