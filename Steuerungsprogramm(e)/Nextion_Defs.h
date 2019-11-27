@@ -63,6 +63,12 @@ NexButton b11 = NexButton(2, 2, "b11");			//  Seitenwechsel nach Page 1
 
 //  Button und Anzeigedefinitionen der Page 3 Datensatz
 NexButton b12 = NexButton(3, 2, "b12");			//  Seitenwechsel nach Page 0
+NexButton b13 = NexButton(3, 20, "b13");			//  speichern des Datensatzes
+NexButton b14 = NexButton(3, 21, "b14");			//  laden eines Datensatzes
+NexText t2 = NexText(3, 10, "t2");        // Anzeige Materialart
+NexNumber n8 = NexNumber(3, 3, "n9");			//  Anzeige Geschwindigkeit Extruder Eingabe
+NexNumber n8 = NexNumber(3, 8, "n10");			//  Anzeige Temperatur Düse
+NexNumber n8 = NexNumber(3, 9, "n11");			//  Anzeige Temperatur Heizblock
 
 //  Button und Anzeigedefinitionen der Page 4 Anzeige Heizstrom und Motorstrom
 NexButton b5 = NexButton(4, 7, "b5");			//  Seitenwechsel nach Page 1
