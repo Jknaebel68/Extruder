@@ -22,7 +22,7 @@ byte bExtruder = 0;			        //  Merker Extrudermotor false = aus true = ein
 bool bHeizung = false;		    	//  Merker Heizung false = aus true = ein
 bool bKuehlung = false;		    	//  Merker Kühlung false = aus true = ein
 int iMaterialart = 0;              // Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
-int iVExtruder = 0;					//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
+int iVExtruder = 1;					//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
 int iTempSollHeizblock = 0;			//  Soll Temperatur Heizblock
 int iTempSollDuese = 0;				//  Soll Temperatur Düse
 long lAMotor = 0;					//  Iststrom Motor Extruder über ACS712 gemessen Berechnung nicht als float Nextion setzt das komma deshalb Wert mal 10 als long
