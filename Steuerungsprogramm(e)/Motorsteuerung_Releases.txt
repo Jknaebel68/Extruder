@@ -1,5 +1,10 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
+v0.1
+28.11.2019      16.30
+
+Variable bExtruder von Bool auf Byte geändert wegen Datenübertragung I2C
+Korrektur ==
 
 ---------------------------------------------------------------------
 
