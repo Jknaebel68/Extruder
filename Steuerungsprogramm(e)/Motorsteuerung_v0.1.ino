@@ -3,7 +3,7 @@
 #define pFreigabe 12
 
 int iVExtruder = 0;
-bool bExtruder = false;
+byte bExtruder = 0;
 unsigned int uiPause = 2100;   // Delay von 2100 Mikrosekunden -> 1%
 
 void setup() {
@@ -15,7 +15,7 @@ void setup() {
 
 void loop() {
 
-  if (bExtruder = true) {
+  if (bExtruder == 1) {
     digitalWrite(pFreigabe, LOW);
     digitalWrite(pMotortakt, HIGH);
     delayMicroseconds(2);
