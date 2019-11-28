@@ -19,8 +19,8 @@
 // Nextion
 int iNexpage = 0;					//  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
 byte bExtruder = 0;			        //  Merker Extrudermotor false = aus true = ein
-bool bHeizung = false;		    	//  Merker Heizung false = aus true = ein
-bool bKuehlung = false;		    	//  Merker Kühlung false = aus true = ein
+byte bHeizung = 0;		    	//  Merker Heizung false = aus true = ein
+byte bKuehlung = 0;		    	//  Merker Kühlung false = aus true = ein
 int iMaterialart = 0;              // Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
 int iVExtruder = 1;					//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
 int iTempSollHeizblock = 0;			//  Soll Temperatur Heizblock
@@ -164,6 +164,10 @@ void setup()
     Platzhalter für weitere Dual State Buttons
     ------------------------------------*/
 
+   n0.attachPush(n0PushCallback, &n0);
+   n1.attachPush(n1PushCallback, &n1);
+   n2.attachPush(n2PushCallback, &n2);
+    
   /*------------------------------------
     Platzhalter für weitere Number anzeigen mit Touchfunktion
     ------------------------------------*/
@@ -403,4 +407,19 @@ void bt2PushCallback(void *ptr)   //  Ein/Aus Kühlung
   {
     bKuehlung = 1;
   }
+}
+
+void n0PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h0 ein
+{
+	iNexpage = 1;
+}
+
+void n1PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h1 ein
+{
+	iNexpage = 1;
+}
+
+void n2PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h2 ein
+{
+	iNexpage = 1;
 }
