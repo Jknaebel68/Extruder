@@ -18,10 +18,10 @@
 
 // Nextion
 int iNexpage = 0;					//  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
-bool bExtruder = false;			//  Merker Extrudermotor false = aus true = ein
-bool bHeizung = false;			//  Merker Heizung false = aus true = ein
-bool bKuehlung = false;			//  Merker Kühlung false = aus true = ein
-int iMaterialart = 0;            // Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
+byte bExtruder = 0;			        //  Merker Extrudermotor false = aus true = ein
+bool bHeizung = false;		    	//  Merker Heizung false = aus true = ein
+bool bKuehlung = false;		    	//  Merker Kühlung false = aus true = ein
+int iMaterialart = 0;              // Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
 int iVExtruder = 0;					//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
 int iTempSollHeizblock = 0;			//  Soll Temperatur Heizblock
 int iTempSollDuese = 0;				//  Soll Temperatur Düse
@@ -163,16 +163,10 @@ void setup()
   /*------------------------------------
     Platzhalter für weitere Dual State Buttons
     ------------------------------------*/
-  n0.attachPush(n0PushCallback, &n0);
-  n1.attachPush(n1PushCallback, &n1);
-  n2.attachPush(n2PushCallback, &n2);
 
   /*------------------------------------
     Platzhalter für weitere Number anzeigen mit Touchfunktion
     ------------------------------------*/
-  h0.attachPop(h0PopCallback, &h0);				//  Geschwindigkeit Motor Extruder 0-100%
-  h1.attachPop(h1PopCallback, &h1);				//  Temperatur Heizblock 0-230°c
-  h2.attachPop(h2PopCallback, &h2);				//  Temperatur Düse 0-250°C
 
   //Serial.println("Setup done");
 
@@ -376,14 +370,7 @@ void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
 {
   uint32_t number = 0;
   bt0.getValue(&number);
-  if (number == 0)
-  {
-    bExtruder = false;
-  }
-  else if (number == 1)
-  {
-    bExtruder = true;
-  }
+  bExtruder = number;
   nanoWrite();   // Freigabe und Drehzahl an NANO senden
 
 }
@@ -394,13 +381,13 @@ void bt1PushCallback(void *ptr)    //  Ein/Aus Heizung
   bt1.getValue(&number);
   if (number == 0)
   {
-    bHeizung = false;
+    bHeizung = 0;
     digitalWrite(pHeizungDuese, LOW);
     digitalWrite(pHeizungHeizblock, LOW);
   }
   else if (number == 1)
   {
-    bHeizung = true;
+    bHeizung = 1;
   }
 }
 
@@ -410,49 +397,10 @@ void bt2PushCallback(void *ptr)   //  Ein/Aus Kühlung
   bt2.getValue(&number);
   if (number == 0)
   {
-    bKuehlung = false;
+    bKuehlung = 0;
   }
   else if (number == 1)
   {
-    bKuehlung = true;
+    bKuehlung = 1;
   }
-  if (bKuehlung)
-  {
-    Serial.println("Kühlung ein");
-  }
-  else
-  {
-    Serial.println("Kühlung aus");
-  }
-}
-
-void n0PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h0 ein
-{
-
-}
-
-void n1PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h1 ein
-{
-
-}
-
-void n2PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h2 ein
-{
-
-}
-
-void h0PopCallback(void *ptr)     //  Geschwindigkeitseinstellung Extruderschnecke 0--100%
-{
-
-
-}
-
-void h1PopCallback(void *ptr)     //  Temperatureinstellung Heizung Düse 0 -- 250°C
-{
-
-}
-
-void h2PopCallback(void *ptr)     //  Temperatureinstellung Heizung Heizblock 0--230°C
-{
-
 }
