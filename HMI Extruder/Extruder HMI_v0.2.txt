@@ -1,5 +1,12 @@
 Release Informationen zu "Extruder_HMI.HMI"
 
+v0.4
+28.11.2019    20.45
+
+Datensatzseite 1 Entwurf
+Fehler auf Page1, es erfolgt keine Istanzeige.
+Ursache ist ein fehlerhafter Seitenwechsel von Page 0 auf den Istanzeigen
+
 ---------------------------------------------------------------------
 
 v0.2
