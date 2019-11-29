@@ -5,6 +5,7 @@ v0.7
 
 Erster Entwurf der Datensatzseite erstellt und in NexDef und in v0.7 integiert
 Änderung Variablen bExtruder, bHeizung, bKühlung nach byte mit Anpassung im Aufruf BT0, 1, 2
+Fehlerkorrektur Seitenaufruf Wechsel Page0 auf Page1
 
 ---------------------------------------------------------------------
 
