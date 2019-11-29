@@ -5,7 +5,7 @@ v0.4
 
 Datensatzseite 1 Entwurf
 Fehler auf Page1, es erfolgt keine Istanzeige.
-Ursache ist ein fehlerhafter Seitenwechsel von Page 0 auf den Istanzeigen
+Ursache ist ein fehlerhafter Seitenwechsel von Page 0 auf den Istanzeigen   <--- Korrektur durchgeführt
 
 ---------------------------------------------------------------------
 
