@@ -4,7 +4,7 @@
 
 int iVExtruder = 0;
 byte bExtruder = 0;
-unsigned int uiPause = 2100;   // Delay von 2100 Mikrosekunden -> 1%
+unsigned int uiPause = 5000;   // Delay von 5000 Mikrosekunden -> 1%
 
 void setup() {
   pinMode (pMotortakt, OUTPUT);
@@ -31,5 +31,5 @@ void loop() {
 void get_Motor_Parameter(int howMany) {
   iVExtruder = Wire.read();
   bExtruder = Wire.read();
-  uiPause = 2100 / iVExtruder;
+  uiPause = 5000 / iVExtruder;
 }

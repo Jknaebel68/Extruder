@@ -1,8 +1,12 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
-v0.1
-28.11.2019      16.30
 
+---------------------------------------------------------------------
+
+v0.1
+29.11.2019      10:25
+
+Motordelay auf 5000us -> 1% Drehzahl geändert
 Variable bExtruder von Bool auf Byte geändert wegen Datenübertragung I2C
 Korrektur ==
 Neue Programmdatei Motorsteuerung vx.y für NANO angelegt
