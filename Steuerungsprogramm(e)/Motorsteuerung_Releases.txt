@@ -5,13 +5,8 @@ v0.1
 
 Variable bExtruder von Bool auf Byte geändert wegen Datenübertragung I2C
 Korrektur ==
-
----------------------------------------------------------------------
-
-v0.1
-23.11.2019      18:15
-
 Neue Programmdatei Motorsteuerung vx.y für NANO angelegt
+Hardwaretest -ok-
 
 ---------------------------------------------------------------------
 
