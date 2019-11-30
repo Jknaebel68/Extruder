@@ -1,8 +1,8 @@
 
 /*
     Name:     Extrudersteuerung.ino
-    Version:  v0.7
-    Created:	28.11.2019  21:15
+    Version:  v0.8
+    Created:	01.12.2019  00:06
     Author:   Joachim Rüber &	Jörg Knaebel
 
 */
@@ -31,6 +31,7 @@ long lAmpDuese = 0;					//  Iststrom Heizung Düse über ACS712 gemessen
 byte NexT[3] = { 255, 255, 255 };
 byte bError_num = 0;
 
+
 // Temperaturmessung
 float fTmpBlck, fTmpDs;     // gemessene float - Temperaturen
 int iTmpBlck, iTmpDs;       // umgewandelte int - Temperaturen
@@ -55,16 +56,7 @@ int iZaehler3 = 0;
 bool bTaktmin = false;
 
 // EEprom
-char *cBezeichnung[] = {"XX", "PP", "APET", "CPET", "PETG", "PLA", "ABS", "ASA", "PO"};
-int iAdresse = 0;
-int iZaehler = 0;
-struct Rezept
-{
-  String sBezeichnung;
-  int iEETempHb;
-  int iEETempDs;
-  int iEEVExtruder;
-};
+int Rezept[20][4];    // 20 Datensätze mit je 4 Feldern
 
 //  Listen to buttons, sliders, etc.
 NexTouch *nex_listen_list[] =
@@ -118,8 +110,15 @@ FastPID myPID_Ds(Kp_Ds, Ki_Ds, Kd_Ds, Hz_Ds, output_bits_Ds, output_signed_Ds);
 void setup()
 {
 
-  iZaehler = EEPROM.read(iAdresse); // Anzahl der vorhandenen Datensätze einlesen
-  iAdresse += 1;                    // Adresszähler um "1" erhöhen.
+
+  // Alle 20 Datensätze aus dem EEPROM einlesen
+  for (int i = 1; i <= 20; i++)
+  {
+    LadenEEprom(i);
+  }
+
+
+
 
   /*------------------------------------
       PinMode Definitionen
@@ -165,10 +164,10 @@ void setup()
     Platzhalter für weitere Dual State Buttons
     ------------------------------------*/
 
-   n0.attachPush(n0PushCallback, &n0);
-   n1.attachPush(n1PushCallback, &n1);
-   n2.attachPush(n2PushCallback, &n2);
-    
+  n0.attachPush(n0PushCallback, &n0);
+  n1.attachPush(n1PushCallback, &n1);
+  n2.attachPush(n2PushCallback, &n2);
+
   /*------------------------------------
     Platzhalter für weitere Number anzeigen mit Touchfunktion
     ------------------------------------*/
@@ -212,6 +211,23 @@ void loop()
       digitalWrite(pHeizungDuese, myPID_Ds.step(iTempSollDuese, iTmpDs));
     }
     timer_2.reset();
+  }
+}
+
+void LadenEEprom(int x)   // x = Rezeptnummer
+{
+  for (int i = 1; i <= 4; i++)
+  {
+    Rezept[x][i] = EEPROM.read(x * 20 - 20 + i);
+  }
+
+}
+
+void SpeichernEEprom(int x)   // x = Rezeptnummer
+{
+  for (int i = 1; i <= 4; i++)
+  {
+    EEPROM.write(x * 20 - 20 + i, Rezept[x][i]);
   }
 }
 
@@ -358,15 +374,28 @@ void b13PushCallback(void *ptr)		// Da die Datenübertragung der Werte mit den S
   iTempSollHeizblock = number;	// Übertragen von Temp in Variable
 }
 
-void b14PushCallback(void *ptr)		// Button zum speichern eines Datensatzes Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM 
+void b14PushCallback(void *ptr)		// Button zum speichern eines Datensatzes Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM
 {
   uint32_t number = 0;              // Hier wird der Wert der Variable für die Materialart abgerufen
   va6.getValue(&number);
   iMaterialart = number;
   // Hiernach kann dann das Abspeichern der relevaten Daten erfolgen
+  for (int i = 1; i <= 20; i++)
+  {
+    if (Rezept[i][1] == 0)
+    {
+      Rezept[i][1] = iMaterialart;
+      Rezept[i][2] = iTempSollHeizblock;
+      Rezept[i][3] = iTempSollDuese;
+      Rezept[i][4] = iVExtruder;
+      SpeichernEEprom(i);
+      break;
+    }
+  }
+
 }
 
-void b15PushCallback(void *ptr)		// Button zum Laden eines Datensatzes es fehlt noch ein Auswahlmenü 
+void b15PushCallback(void *ptr)		// Button zum Laden eines Datensatzes es fehlt noch ein Auswahlmenü
 {
   // Absprache erforderlich eventuell machen wir eine Seite für Speichern und eine zum Laden ????
 }
@@ -412,15 +441,15 @@ void bt2PushCallback(void *ptr)   //  Ein/Aus Kühlung
 
 void n0PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h0 ein
 {
-	iNexpage = 1;
+  iNexpage = 1;
 }
 
 void n1PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h1 ein
 {
-	iNexpage = 1;
+  iNexpage = 1;
 }
 
 void n2PushCallback(void *ptr)    //  Betätigung des grünen Solltempfeldes blendet den Schieberegler h2 ein
 {
-	iNexpage = 1;
+  iNexpage = 1;
 }
