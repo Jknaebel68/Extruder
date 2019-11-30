@@ -55,11 +55,12 @@ int iZaehler3 = 0;
 bool bTaktmin = false;
 
 // EEprom
+char *cBezeichnung[] = {"XX", "PP", "APET", "CPET", "PETG", "PLA", "ABS", "ASA", "PO"};
 int iAdresse = 0;
 int iZaehler = 0;
 struct Rezept
 {
-  char cBezeichnung[19];
+  String sBezeichnung;
   int iEETempHb;
   int iEETempDs;
   int iEEVExtruder;
@@ -83,7 +84,7 @@ NexTouch *nex_listen_list[] =
   &b12,
   &b13,
   &b14,
-  &b15
+  &b15,
   &bt0,
   &bt1,
   &bt2,
@@ -96,7 +97,7 @@ NexTouch *nex_listen_list[] =
   &h0,
   &h1,
   &h2,
-  &va6
+  &va6,
   &page0,
   &page1,
   &page2,
