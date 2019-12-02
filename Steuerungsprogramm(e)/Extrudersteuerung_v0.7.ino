@@ -398,6 +398,12 @@ void b14PushCallback(void *ptr)		// Button zum speichern eines Datensatzes Mater
 void b15PushCallback(void *ptr)		// Button zum Laden eines Datensatzes es fehlt noch ein Auswahlmenü
 {
   // Absprache erforderlich eventuell machen wir eine Seite für Speichern und eine zum Laden ????
+
+    LadenEEprom(iDatensatzNum);
+    iMaterialart=Rezept[i][1];
+    iTempSollHeizblock=Rezept[i][2];
+    iTempSollDuese=Rezept[i][3];
+    iVExtruder=Rezept[i][4];
 }
 
 void bt0PushCallback(void *ptr)   //  Ein/Aus Extruderschnecke
