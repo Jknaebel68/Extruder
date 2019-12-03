@@ -1,11 +1,19 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
 
+---------------------------------------------------------------------
+
+v0.8
+03.12.2019      16:24
+
+EEPROM Speichern auf EEPROM Updaten umgestellt
+Erweiterungen für Materialfarbe eingefügt
+Kompilieren -ok-
 
 ---------------------------------------------------------------------
 
 v0.7
-01.12.2019      00.12
+01.12.2019      00:12
 
 Datensatzstruktur neu angelegt und vereinfacht
 EEPROM Laden und Speichern fertiggestellt
