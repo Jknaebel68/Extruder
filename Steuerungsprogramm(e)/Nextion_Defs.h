@@ -1,9 +1,9 @@
 /*
  *  Name:       Nextion_Defs.h
- *  Version:    v0.3
+ *  Version:    v0.8
  *  Created:    21.11.2019  20:32
  *  Author:     Joachim Rüber & Jörg Knaebel
- * 
+ *
  */
 
 
@@ -12,7 +12,7 @@
 #define NEXTION_DEFS_H
 
 #define pMaterialFuelstand 34  // Füllstandssensor des Vorratsbehälters
-#define pMotorExtruder 30   // Versorungsspannung für ExtruderMotortreiber 
+#define pFreigabeHeizung 30   // Versorungsspannung für ExtruderMotortreiber 
 #define pHeizungHeizblock 31  // Heizleistung beträgt 200W bei 24V mit 2 P_Mosfet
 #define pHeizungDuese 32    // Heizleistung 100W bei 24V 1P_Mosfet
 #define pKuehlung 33      // alle Kühlgebläse der Kühlstrecke
@@ -31,6 +31,7 @@ NexPage page2 = NexPage(2, 0, "page2");			//  Setupseite Aufwicklung
 NexPage page3 = NexPage(3, 0, "page3");			//  Datensatz speichern
 NexPage page4 = NexPage(4, 0, "page4");			//  Anzeige Ströme
 NexPage page5 = NexPage(5, 0, "page5");			//	Grafische Anzeige Temperatur Strom usw
+NexPage page6 = NexPage(6, 0, "page6");			//	Datensatz laden
 
 //  Button und Anzeigedefinitionen der Page 0
 NexButton b0 = NexButton(0, 16, "b0");			//  Seitenwechsel nach Page 1
@@ -61,14 +62,15 @@ NexSlider h2 = NexSlider(1, 20, "h2");			//  Einstellung Temperatur Heizblock
 //  Button und Anzeigedefinitionen der Page 2 Aufwicklungsparameter
 NexButton b11 = NexButton(2, 2, "b11");			//  Seitenwechsel nach Page 1
 
-//  Button und Anzeigedefinitionen der Page 3 Datensatz
+//  Button und Anzeigedefinitionen der Page 3 Datensatz speicher
 NexButton b12 = NexButton(3, 2, "b12");			//  Seitenwechsel nach Page 0
-NexButton b14 = NexButton(3, 20, "b14");			//  speichern des Datensatzes
-NexButton b15 = NexButton(3, 21, "b15");			//  laden eines Datensatzes
-NexVariable va6 = NexVariable(3, 22, "va6");        // Anzeige Materialart
+NexButton b14 = NexButton(3, 20, "b14");		//  speichern des Datensatzes
+NexVariable va6 = NexVariable(3, 22, "va6");    // Anzeige Materialart
+NexVariable va7 = NexVariable(3, 33, "va7");    // Anzeige Materialfarbe
 NexNumber n9 = NexNumber(3, 3, "n9");			//  Anzeige Geschwindigkeit Extruder Eingabe
 NexNumber n10 = NexNumber(3, 8, "n10");			//  Anzeige Temperatur Düse
 NexNumber n11 = NexNumber(3, 9, "n11");			//  Anzeige Temperatur Heizblock
+NexButton b19 = NexButton(3, 22, "b19");		//  Seitenwechsel nach Page 6 Datensatz laden
 
 //  Button und Anzeigedefinitionen der Page 4 Anzeige Heizstrom und Motorstrom
 NexButton b5 = NexButton(4, 7, "b5");			//  Seitenwechsel nach Page 1
@@ -81,4 +83,21 @@ NexButton b9 = NexButton(4, 12, "b9");			//  Seitenwechsel nach Page 5 Graph
 //  Button und Anzeigedefinitionen der Page 5 Anzeige Heizstrom und Motorstrom Grafisch
 NexButton b10 = NexButton(5, 1, "b10");			//  Seitenwechsel nach Page 1
 NexWaveform s0 = NexWaveform(5, 2, "s0");		//  Oszianzeige
+
+//  Button und Anzeigedefinitionen der Page 6 Datensatz laden
+NexButton b15 = NexButton(6, 2, "b15");			//  laden eines Datensatzes
+NexButton b16 = NexButton(6, 14, "b16");		//  Datensatz anwahl +1
+NexButton b17 = NexButton(6, 16, "b17");		//  Datensatz anwahl -1
+NexButton b18 = NexButton(6, 11, "b18");		//  Seitenwechsel nach Page 3
+NexNumber n12 = NexNumber(6, 15, "n12");		//	Anzeige aufgerufener Datenzsatz
+NexVariable va8 = NexVariable(6, 17, "va8");    // Variable Materialart
+NexVariable va9 = NexVariable(6, 18, "va9");    // Variable Materialfarbe
+NexText t8 = NexText(6, 10, "t8");				// Anzeige Materialart
+NexText t9 = NexText(6, 13, "t9");				// Anzeige Materialfarbe
+NexNumber n13 = NexNumber(6, 3, "n13");			//  Anzeige Geschwindigkeit Extruder Eingabe
+NexNumber n14 = NexNumber(6, 8, "n14");			//  Anzeige Temperatur Düse
+NexNumber n15 = NexNumber(6, 9, "n15");			//  Anzeige Temperatur Heizblock
+
+
+
 #endif
