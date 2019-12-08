@@ -28,8 +28,8 @@ int iTempSollDuese = 0;				//  Soll Temperatur Düse
 long lAMotor = 0;					//  Iststrom Motor Extruder über ACS712 gemessen Berechnung nicht als float Nextion setzt das komma deshalb Wert mal 10 als long
 long lAmpHeizblock = 0;				//  Iststrom Heizung Heizblock über ACS712 gemessen
 long lAmpDuese = 0;					//  Iststrom Heizung Düse über ACS712 gemessen
-byte NexT[3] = { 255, 255, 255 };
-byte bError_num = 0;
+byte bNexT[3] = { 255, 255, 255 };
+char *cError_text[] = { "Übertemperatur Block","Übertemperatur Düse","Antrieb Extr. blockiert","Antrieb Aufw. blockiert","...usw..."};
 int iDatensatzNum = 0;
 
 // Temperaturmessung
@@ -274,15 +274,15 @@ void SwitchCaseAnzeige()			// Daten zur aktiven Seite senden
       nexSerial.print("x0.val=\"");
       nexSerial.print(lAMotor);
       nexSerial.write('"');
-      nexSerial.write(NexT, 3);
+      nexSerial.write(bNexT, 3);
       nexSerial.print("x1.val=\"");
       nexSerial.print(lAmpDuese);
       nexSerial.write('"');
-      nexSerial.write(NexT, 3);
+      nexSerial.write(bNexT, 3);
       nexSerial.print("x2.val=\"");
       nexSerial.print(lAmpHeizblock);
       nexSerial.write('"');
-      nexSerial.write(NexT, 3);
+      nexSerial.write(bNexT, 3);
       break;
     case 5:							// Anzeigen übertragen auf Page 5  Osziloskop Strom Temp usw
       getTemp();
