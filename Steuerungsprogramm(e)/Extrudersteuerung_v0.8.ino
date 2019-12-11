@@ -194,22 +194,22 @@ void loop()
     getTemp();
     if (iTmpBlck < (iTempSollHeizblock * 0.9))
     {
-      digitalWrite(pHeizungHeizblock, HIGH);
+      digitalWrite(pHeizungHeizblock, LOW);
       myPID_Blck.clear();
     }
     else
     {
-      digitalWrite(pHeizungHeizblock, myPID_Blck.step(iTempSollHeizblock, iTmpBlck));
+      digitalWrite(pHeizungHeizblock, !(myPID_Blck.step(iTempSollHeizblock, iTmpBlck)));
     }
 
     if (iTmpDs < (iTempSollDuese * 0.9))
     {
-      digitalWrite(pHeizungDuese, HIGH);
+      digitalWrite(pHeizungDuese, LOW);
       myPID_Ds.clear();
     }
     else
     {
-      digitalWrite(pHeizungDuese, myPID_Ds.step(iTempSollDuese, iTmpDs));
+      digitalWrite(pHeizungDuese, !(myPID_Ds.step(iTempSollDuese, iTmpDs)));
     }
     timer_2.reset();
   }
