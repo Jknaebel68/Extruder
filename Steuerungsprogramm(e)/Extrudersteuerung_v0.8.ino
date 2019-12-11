@@ -1,7 +1,7 @@
 /*
 	Name:     Extrudersteuerung.ino
 	Version:  v0.8
-	Created:	03.12.2019  16:22
+	Created:	11.12.2019  16:22
 	Author:   Joachim Rüber &	Jörg Knaebel
 
 */
@@ -29,7 +29,7 @@ long lAMotor = 0;					//  Iststrom Motor Extruder über ACS712 gemessen Berechnu
 long lAmpHeizblock = 0;				//  Iststrom Heizung Heizblock über ACS712 gemessen
 long lAmpDuese = 0;					//  Iststrom Heizung Düse über ACS712 gemessen
 byte bNexT[3] = { 255, 255, 255 };
-char *cError_text[] = { "Übertemperatur Block","Übertemperatur Düse","Antrieb Extr. blockiert","Antrieb Aufw. blockiert","...usw..."};
+char *cError_text[] = { "Übertemperatur Block", "Übertemperatur Düse", "Antrieb Extr. blockiert", "Antrieb Aufw. blockiert", "...usw..."};
 int iDatensatzNum = 0;
 
 // Temperaturmessung
@@ -123,7 +123,8 @@ void setup()
   	------------------------------------*/
   pinMode(pHeizungDuese, OUTPUT);
   pinMode(pHeizungHeizblock, OUTPUT);
-
+  digitalWrite(pHeizungDuese, HIGH);
+  digitalWrite(pHeizungHeizblock, HIGH);
   timer_1.setInterval(1000);    // timer_1 auf 1s gesetzt
   timer_2.setInterval(100);     // timer_2 auf 100ms gesetzt
 
