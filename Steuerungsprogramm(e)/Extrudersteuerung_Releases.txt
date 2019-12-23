@@ -1,5 +1,14 @@
 Release Informationen zu "Extrudersteuerung.ino"
+v0.9
+23.12.2019      17:00
 
+Strommessung für Heizung und Motor eingefügt, getestet mit Nextion.
+Die Anzeigefelder des Nextion von Float auf Text umgestellt, in der Steuerung nun mit dem Befehl dtostrf flaot in char umgewandelt.
+?? Zur Strommessung Heizung im Moment ist es eine reine Anzeige, ich würde gerne mit einem Sensor die Stromwerte für beide Heizungen
+messen. z.B. Sobald die Heizung an ist auf Temperatur wird alle ?10sek.? nur je ein Heizkanal gemessen und Referenzwert verglichen,
+falls ein Heizelement ausfällt. ??
+
+Prameterspeicherung muss noch geprüft werden
 
 ---------------------------------------------------------------------
 
