@@ -1,5 +1,13 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
+v0.2
+30.12.2019      21.30
+
+Über einen Interrupt wird eine Drehrichtungsänderung durchgeführt, 
+die über eine feste Zeit(1sek) anhält. Danach wird wieder umgeschaltet.
+Dies soll im Fall einer Blockierung/Überstrom des Servo die Blockierung
+im Materialschacht lösen.
+
 
 ---------------------------------------------------------------------
 
