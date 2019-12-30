@@ -121,4 +121,5 @@ NexText t11 = NexText(6, 19, "t11");            //  Textanzeige Laden erfolgreic
 NexButton b24 = NexButton(7, 1, "b24");			    //  Seitenwechsel nach Page 2 Zugeinheit
 
 
+
 #endif
