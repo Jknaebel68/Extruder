@@ -89,7 +89,7 @@ NexButton b19 = NexButton(3, 22, "b19");		    //  Seitenwechsel nach Page 6 Date
 NexText t10 = NexText(3, 34, "t10");          //  Textanzeige Speichern erfolgreich
 
 //  Button und Anzeigedefinitionen der Page 4 Anzeige Heizstrom und Motorstrom
-NexButton b5 = NexButton(4, 7, "b5");			     //  Seitenwechsel nach Page 1
+NexButton b5 = NexButton(4, 4, "b5");			     //  Seitenwechsel nach Page 1
 NexButton b6 = NexButton(4, 8, "b6");			     //  Setbutton für Stromrefwert Motorstrom
 NexButton b7 = NexButton(4, 9, "b7");			     //  Setbutton für Stromrefwert Düse
 NexButton b8 = NexButton(4, 10, "b8");			    //  Setbutton für Stromrefwert Heizblock
