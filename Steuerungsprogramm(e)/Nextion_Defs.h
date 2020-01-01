@@ -67,11 +67,10 @@ NexVariable va5 = NexVariable(3, 21, "va5");	  //  Variable SollTemperatur Heizb
 //  Button und Anzeigedefinitionen der Page 2 Zugeinheit Parameter
 NexButton b11 = NexButton(2, 2, "b11");			    //  Seitenwechsel nach Page 1
 NexButton b20 = NexButton(2, 3, "b20");			    //  Seitenwechsel nach Page 7 Aufwicklung
-NexButton b21 = NexButton(2, 4, "b21");			    //  Geschwindigkeit Zugmotor um + 0,01 1/min erhöhen
-NexButton b22 = NexButton(2, 5, "b22");			    //  Geschwindigkeit Zugmotor um - 0,01 1/min verringern
+NexButton b21 = NexButton(2, 4, "b21");			    //  Geschwindigkeit Zugmotor um +1 mm/min erhöhen
+NexButton b22 = NexButton(2, 5, "b22");			    //  Geschwindigkeit Zugmotor um -1 mm/min verringern
 NexButton b23 = NexButton(2, 16, "b23");			   //  Referenzwert der Dickmessung eines Referenzstücks Filament übernehmen
-NexText t50 = NexText(2, 12, "t50");				      //  Anzeige Soll Drehzahl Zugmotor
-NexText t51 = NexText(2, 13, "t51");				      //  Anzeige Ist Drehzahl Zugmotor
+NexNumber n16 = NexNumber(2, 15, "n16");			   //	Drehzahl Zugmotor in mm/min
 NexText t52 = NexText(2, 14, "t52");				      //  Anzeige Dicksensor 1
 NexText t53 = NexText(2, 15, "t53");				      //  Anzeige Dicksensor 2
 NexText t54 = NexText(2, 16, "t54");				      //  Anzeige Referenzwert
@@ -95,8 +94,8 @@ NexButton b7 = NexButton(4, 9, "b7");			     //  Setbutton für Stromrefwert Dü
 NexButton b8 = NexButton(4, 10, "b8");			    //  Setbutton für Stromrefwert Heizblock
 NexButton b9 = NexButton(4, 12, "b9");			    //  Seitenwechsel nach Page 5 Graph
 NexText t40 = NexText(4, 10, "t40");				     //  Anzeige Motorstrom
-NexText t41 = NexText(4, 11, "t41");				     //  Anzeige Strom Düse
-NexText t42 = NexText(4, 12, "t42");				     //  Anzeige Strom Heizblock
+NexText t41 = NexText(4, 11, "t41");				     //  Anzeige Strom Heizung
+
 
 //  Button und Anzeigedefinitionen der Page 5 Anzeige Heizstrom und Motorstrom Grafisch
 NexButton b10 = NexButton(5, 1, "b10");			     //  Seitenwechsel nach Page 1
