@@ -16,19 +16,18 @@
 #include <EEPROM.h>
 
 // Nextion
-int iNexpage = 0;				      //  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
-byte bExtruder = 0;				    //  Merker Extrudermotor false = aus true = ein
-byte bHeizung = 0;				    //  Merker Heizung false = aus true = ein
-byte bKuehlung = 0;				    //  Merker Kühlung false = aus true = ein
-int iMaterialart = 0;			    //  Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
-int iMaterialfarbe = 0;		    //  Auswahl Materialfarbe 1=klar 2= weiß 3= gelb 4= schwarz 5= blau 6= grün 7= rot !! nur mal vorläufig !!
-int iVExtruder = 1;				    //  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
-int iTempSollHeizblock = 0;   //  Soll Temperatur Heizblock
-int iTempSollDuese = 0;			  //  Soll Temperatur Düse
-float fAmpMotor = 0.0;			  //  Iststrom Motor Extruder über ACS712 gemessen Berechnung nicht als float Nextion setzt das komma deshalb Wert mal 10 als long
-float fAmpHeizblock = 0.0;		//  Iststrom Heizung Heizblock über ACS712 gemessen
-float fAmpDuese = 0.0;			  //  Iststrom Heizung Düse über ACS712 gemessen
-char NextionWert[15];			    //  Hilfsvariable um Daten aus Variablen in Textfelder anzuzeigen
+int iNexpage = 0;				//  Merker welche Seite auf dem Display angezeigt wird, damit nur Daten der aufgerufenen Seite übertragen werden
+byte bExtruder = 0;				//  Merker Extrudermotor false = aus true = ein
+byte bHeizung = 0;				//  Merker Heizung false = aus true = ein
+byte bKuehlung = 0;				//  Merker Kühlung false = aus true = ein
+int iMaterialart = 0;				//  Auswahl Materialart 1= PP 2 = APET 3 = CPET 4 = PETG 5 = PLA 6 = ABS 7 = ASA 8 = POM !! nur mal vorläufig !!
+int iMaterialfarbe = 0;		    		//  Auswahl Materialfarbe 1=klar 2= weiß 3= gelb 4= schwarz 5= blau 6= grün 7= rot !! nur mal vorläufig !!
+int iVExtruder = 1;				//  Soll Geschwindigkeit des Extruders von der max Geschwindigkeit 100% = 1Hz Extruderschnecke 19Hz Extrudermotor
+int iTempSollHeizblock = 0;   			//  Soll Temperatur Heizblock
+int iTempSollDuese = 0;				//  Soll Temperatur Düse
+float fAmpMotor = 0.0;				//  Iststrom Motor Extruder über ACS712 gemessen Berechnung nicht als float Nextion setzt das komma deshalb Wert mal 10 als long
+float fAmpHeizung = 0.0;			//  Iststrom Heizung Düse über ACS712 gemessen
+char NextionWert[15];				//  Hilfsvariable um Daten aus Variablen in Textfelder anzuzeigen
 char *cError_text[] = { "Übertemperatur Block", "Übertemperatur Düse", "Antrieb Extr. blockiert", "Antrieb Aufw. blockiert", "...usw..."};
 int iDatensatzNum = 0;
 
@@ -246,12 +245,11 @@ void loop()
 				digitalWrite(pHeizungDuese, !(myPID_Ds.step(iTempSollDuese, iTmpDs)));
 			}
 			// Mit diesen Anweisungen wird der Strom der Heizung gemessen
-			// Frage ist ob man die beiden Heizung so schalten kann das zyklisch für die Messung nur der Heizblock oder die Düse an sind
-			/*float SensorSpannung = 0;
+			float SensorSpannung = 0;
 			int SensorwertHeizung = 0;
 			SensorwertHeizung = analogRead(pStromHeizung);
 			SensorSpannung = (SensorwertHeizung / 1024.0) * 5000;
-			fAmpDuese = ((SensorSpannung - Nullpunkt) / VpA2);*/
+			fAmpHeizung = ((SensorSpannung - Nullpunkt) / VpA2);
 		}
 		if (fReferenzwertdicke > 0 && bHeizung && bExtruder && bKuehlung)		// Messung der Dicke des Filaments wird sich zeigen ob man 2 braucht
 		{
@@ -320,19 +318,17 @@ void SwitchCaseAnzeige()			// Daten zur aktiven Seite senden
 		break;
 	case 2:							// Anzeigen übertragen auf Page 2  Setup Zugmotor
 		//dtostrf(MeinWert, 0, 1, NextionWert);
-		nexSerial.print(faWertSensor1);
-		nexSerial.print(faWertSensor2);
-		nexSerial.print(fReferenzwertdicke);
+		//nexSerial.print(faWertSensor1);
+		//nexSerial.print(faWertSensor2);
+		//nexSerial.print(fReferenzwertdicke);
 		break;
 	case 3:							// Anzeigen übertragen auf Page 3  Datensatz
 		break;
 	case 4:							// Anzeigen übertragen auf Page 4  Stromanzeige und Referenzieren
 		dtostrf(fAmpMotor, 3, 1, NextionWert);
 		t40.setText(NextionWert);
-		dtostrf(fAmpDuese, 3, 1, NextionWert);
+		dtostrf(fAmpHeizung, 3, 1, NextionWert);
 		t41.setText(NextionWert);
-		dtostrf(fAmpHeizblock, 3, 1, NextionWert);
-		t42.setText(NextionWert);
 		break;
 	case 5:							// Anzeigen übertragen auf Page 5  Osziloskop Strom Temp usw
 		s0.addValue(0, iTmpDs);
@@ -389,12 +385,12 @@ void b6PushCallback(void *ptr)		// Übernahme Referenzwert Motorstrom
 
 }
 
-void b7PushCallback(void *ptr)		// Übernahme Referenzwert Strom Heizung Düse
+void b7PushCallback(void *ptr)		// Übernahme Referenzwert Strom Heizung
 {
 
 }
 
-void b8PushCallback(void *ptr)		// Übernahme Referenzwert Strom Heizung Heizblock
+void b8PushCallback(void *ptr)		// Platzhalter
 {
 
 }
@@ -531,14 +527,16 @@ void b20PushCallback(void *ptr)		// Seitenwechsel nach Page 2
 	iNexpage = 7;
 }
 
-void b21PushCallback(void *ptr)		// Drehzahl des Zugmotors um 0,01 U/min erhöhen
+void b21PushCallback(void *ptr)		// Drehzahl des Zugmotors um 1mm/min erhöhen
 {
-	
+	ivZugmotor++;
+	n16.setValue(ivZugmotor);
 }
 
-void b22PushCallback(void *ptr)		// Drehzahl des Zugmotors um 0,01 U/min verringern
+void b22PushCallback(void *ptr)		// Drehzahl des Zugmotors um 1mm/min verringern
 {
-	
+	ivZugmotor--;
+	n16.setValue(ivZugmotor);
 }
 
 void b23PushCallback(void *ptr)		// Referenzwerte Dicke Filament speichern
