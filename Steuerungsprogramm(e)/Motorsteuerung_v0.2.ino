@@ -44,10 +44,6 @@ void loop() {
    premillis = 0;
    iRichtung = 0;
   }
-  if (iRichtung == 1 && bExtruder == 1)
-  {
-    digitalWrite(pRichtung, HIGH);
-  }
 
 }
 
@@ -59,5 +55,6 @@ void get_Motor_Parameter(int howMany) {
 
 void Alarm(){
   iRichtung = 1;
+  digitalWrite(pRichtung, HIGH);
   premillis = millis();
  }
