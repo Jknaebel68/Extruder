@@ -172,17 +172,20 @@ void setup()
 	b11.attachPush(b11PushCallback, &b11);
 	b12.attachPush(b12PushCallback, &b12);
 	b13.attachPush(b13PushCallback, &b13);
-	b14.attachPush(b13PushCallback, &b14);
-	b15.attachPush(b13PushCallback, &b15);
-	b16.attachPush(b13PushCallback, &b16);
-	b17.attachPush(b13PushCallback, &b17);
-	b18.attachPush(b13PushCallback, &b18);
-	b19.attachPush(b13PushCallback, &b19);
-	b20.attachPush(b13PushCallback, &b20);
-	b21.attachPush(b13PushCallback, &b21);
-	b22.attachPush(b13PushCallback, &b22);
-	b23.attachPush(b13PushCallback, &b23);
-	b24.attachPush(b13PushCallback, &b24);
+	b14.attachPush(b14PushCallback, &b14);
+	b15.attachPush(b15PushCallback, &b15);
+	b16.attachPush(b16PushCallback, &b16);
+	b17.attachPush(b17PushCallback, &b17);
+	b18.attachPush(b18PushCallback, &b18);
+	b19.attachPush(b19PushCallback, &b19);
+	b20.attachPush(b20PushCallback, &b20);
+	//b21.attachPush(b21PushCallback, &b21);
+	//b22.attachPush(b22PushCallback, &b22);
+	b23.attachPush(b23PushCallback, &b23);
+	b24.attachPush(b24PushCallback, &b24);
+	//b25.attachPush(b25PushCallback, &b25);
+	//b26.attachPush(b26PushCallback, &b26);
+	b27.attachPush(b27PushCallback, &b27);
 
 
 	/*------------------------------------
@@ -199,7 +202,8 @@ void setup()
 	n0.attachPush(n0PushCallback, &n0);
 	n1.attachPush(n1PushCallback, &n1);
 	n2.attachPush(n2PushCallback, &n2);
-
+	n30.attachPush(n30PushCallback, &n30);
+	
 	/*------------------------------------
 	  Platzhalter für weitere Number anzeigen mit Touchfunktion
 	  ------------------------------------*/
