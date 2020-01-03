@@ -614,7 +614,7 @@ void b27PushCallback(void *ptr)		// Drehzahl des Zugmotors um +1 mm/min erhöhen
 		x3 = number - 255;
 		number = number - x3;
 	}
-	if (number < 255)
+	if (number <= 255)
 	{
 		x4 = number;
 	}
