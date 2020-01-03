@@ -70,7 +70,8 @@ int iZugmotor = 0;				// wird 1 bei Heizung auf Temperatur und Extruder ein
 float faWertSensor1 = 0;
 float faWertSensor2 = 0;
 float fReferenzwertdicke = 0;
-int x[4];
+uint8_t x[4];
+//int val = 4;
 //int x2 = 0;
 //int x3 = 0;
 //int x4 = 0;
@@ -605,17 +606,17 @@ void b27PushCallback(void *ptr)		// Drehzahl des Zugmotors um +1 mm/min erhöhen
   if (number > 765)
   {
     x[0] = number - 765;
-    number = number - x1;
+    number = number - x[0];
   }
   if (number > 510)
   {
     x[1] = number - 510;
-    number = number - x2;
+    number = number - x[1];
   }
   if (number > 255)
   {
     x[2] = number - 255;
-    number = number - x3;
+    number = number - x[2];
   }
   if (number <= 255)
   {

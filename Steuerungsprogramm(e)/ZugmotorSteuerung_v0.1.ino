@@ -18,7 +18,7 @@ int schrittposition1 = 1;
 unsigned long pwablauf1 = 0;							// Pulswechselablaufzeit1
 unsigned long whablauf1 = 0;							// Wiederhohlablaufzeit1
 unsigned long lSchaltzeit = 0;						// Zeit wird in Microsekunden übertragen berechnung der Schaltzeit macht der Mega
-
+uint8_t x[4];
 
 
 
@@ -64,22 +64,27 @@ void loop()
 
 void get_Motor_Parameter(int howMany) 
 	{
-    int x1 = 0;
-    int x2 = 0;
-    int x3 = 0;
-    int x4 = 0;
+        for (int i=0; i<4;i++)
+        {
+            x[i] = Wire.read();
+            
+        }
+    //int x1 = 0;
+    //int x2 = 0;
+    //int x3 = 0;
+    //int x4 = 0;
     float y = 0;
-    float x = 0;
+    float xx = 0;
     float z = 0;
-		x1 = Wire.read();
-    x2 = Wire.read();
-    x3 = Wire.read();
-    x4 = Wire.read();
+    //x1 = Wire.read();
+    //x2 = Wire.read();
+    //x3 = Wire.read();
+    //x4 = Wire.read();
 		iZugmotor = Wire.read();
     delay(1);
-    ivZugmotor = x1 + x2 + x3 + x4;
-    x = ivZugmotor;
-    y = x/97,69;
+    ivZugmotor = x[0] + x[1] + x[2] + x[3];
+    xx = ivZugmotor;
+    y = xx/97,69;
     z = y * 1600;
     lSchaltzeit = 30000000/z;
 //    Serial.println("Erhalten");
