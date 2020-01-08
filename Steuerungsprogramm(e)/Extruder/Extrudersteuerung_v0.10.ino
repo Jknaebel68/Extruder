@@ -46,12 +46,12 @@ int iTmpBlck, iTmpDs;			// umgewandelte int - Temperaturen
 
 // PID-Regler Block
 float Kp_Blck = 0.1, Ki_Blck = 0.5, Kd_Blck = 0, Hz_Blck = 10;
-int output_bits_Blck = 1;
+int output_bits_Blck = 8;
 bool output_signed_Blck = false;
 
 // PID-Regler Düse
 float Kp_Ds = 0.1, Ki_Ds = 0.5, Kd_Ds = 0, Hz_Ds = 10;
-int output_bits_Ds = 1;
+int output_bits_Ds = 8;
 bool output_signed_Ds = false;
 
 
@@ -243,22 +243,22 @@ void loop()
     {
       if (iTmpBlck < (iTempSollHeizblock * 0.9))
       {
-        digitalWrite(pHeizungHeizblock, LOW);
+        analogWrite(pHeizungHeizblock, 255);
         myPID_Blck.clear();
       }
       else
       {
-        digitalWrite(pHeizungHeizblock, !(myPID_Blck.step(iTempSollHeizblock, iTmpBlck)));
+        analogWrite(pHeizungHeizblock, myPID_Blck.step(iTempSollHeizblock, iTmpBlck));
       }
 
       if (iTmpDs < (iTempSollDuese * 0.9))
       {
-        digitalWrite(pHeizungDuese, LOW);
+        analogWrite(pHeizungDuese, 255);
         myPID_Ds.clear();
       }
       else
       {
-        digitalWrite(pHeizungDuese, !(myPID_Ds.step(iTempSollDuese, iTmpDs)));
+        analogWrite(pHeizungDuese, myPID_Ds.step(iTempSollDuese, iTmpDs));
       }
       // Mit diesen Anweisungen wird der Strom der Heizung gemessen
       // Frage ist ob man die beiden Heizung so schalten kann das zyklisch für die Messung nur der Heizblock oder die Düse an sind

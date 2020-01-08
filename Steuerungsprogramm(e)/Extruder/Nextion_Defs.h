@@ -13,8 +13,8 @@
 
 #define pMaterialFuelstand 34   // Füllstandssensor des Vorratsbehälters
 #define pFreigabeHeizung 30     // Versorungsspannung für ExtruderMotortreiber 
-#define pHeizungHeizblock 31    // Heizleistung beträgt 200W bei 24V mit 2 P_Mosfet
-#define pHeizungDuese 32        // Heizleistung 100W bei 24V 1P_Mosfet
+#define pHeizungHeizblock 2    // Heizleistung beträgt 200W bei 24V mit 2 P_Mosfet
+#define pHeizungDuese 3        // Heizleistung 100W bei 24V 1P_Mosfet
 #define pKuehlung 33            // alle Kühlgebläse der Kühlstrecke
 #define pReferenz A0            // 5V Referenz Fraglich ob notwendig
 #define pStromMotor A1          // Stromsensor ACS712 5A 

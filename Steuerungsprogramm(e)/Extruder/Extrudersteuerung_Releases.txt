@@ -1,10 +1,22 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
+
+
+
+---------------------------------------------------------------------
+
+v0.10
+08.01.2020      19:57
+
+Temperaturregelung auf PWM umgestellt (PIN2 & PIN3).
+Nextion_Defs.h angepasst.
+
 ---------------------------------------------------------------------
 
 v0.9
 01.01.2020      22:00
 
+Temperaturregelung auf PWM umgestellt (PIN2 & PIN3).
 Vorarbeit Ansteuerung Zugmotor, Zugmotor erhält einen eigenen UNO mit CNC Shield für die Erweiterung der Aufwicklung.
 Dieser uno soll über I2C angesteuert werden wie der Arduino für den Servo.
 Strommessung für Heizung und Motor eingefügt, getestet mit Nextion.
