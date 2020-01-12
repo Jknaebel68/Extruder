@@ -1,7 +1,7 @@
 /*
 	Name:     Extrudersteuerung.ino
-	Version:  v0.10
-	Created:	25.11.2019  20:12
+	Version:  v0.11
+	Created:	12.01.2020  20:12
 	Author:   Joachim Rüber &	Jörg Knaebel
 
 */

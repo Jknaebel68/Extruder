@@ -1,8 +1,9 @@
 Release Informationen zu "Zugmotorsteuerung.ino"
 
-v0.1
+---------------------------------------------------------------------
 
-03.01.2020        20:00
+v0.1
+03.01.2020
 
 Steuerung des Zugmotors über i2c
 Der Zugmotor zieht am Filament um dies aus dem Extruder zu befördern.
@@ -11,4 +12,4 @@ Ist der Vorschub des Zugmotors kleiner als die Extrusion, wird das Filament dick
 Ist der Vorschub des Zugmotors größer als die Extrusion, wird das Filamend dünner.
 Die Maßeinheit für den Vorschub wird in mm/min angegeben und in der Steuerung entsprechend auf die Schritte/min umgerechnet.
 
-
+---------------------------------------------------------------------

@@ -1,10 +1,13 @@
 Release Informationen zu "Extrudersteuerung.ino"
 
+
+---------------------------------------------------------------------
+
 v0.11
 12.01.2020
 
 Temperaturregelung mit neuer Libary PWM gesteuert eingefügt. 
-Schwankungen der Temperatur beläuft sich bei 150°C -3 bis 8 Grad, vielleicht noch Feintuneing.
+Schwankungen der Temperatur beläuft sich bei 150°C -3 bis 8 Grad, vielleicht noch Feintuning.
 Graph im Nextion wird nun mit Daten gespeist.
 Diverse Umstellungen der Buttonnamen zur besseren Erweiterbarkeit und Übersichtlichkeit,
 z.B. B20 ist nun der erste Button auf Page 2 
@@ -13,7 +16,7 @@ z.B. B20 ist nun der erste Button auf Page 2
 ---------------------------------------------------------------------
 
 v0.10
-08.01.2020      19:57
+08.01.2020
 
 Temperaturregelung auf PWM umgestellt (PIN2 & PIN3).
 Nextion_Defs.h angepasst.
@@ -21,7 +24,7 @@ Nextion_Defs.h angepasst.
 ---------------------------------------------------------------------
 
 v0.9
-01.01.2020      22:00
+01.01.2020
 
 Temperaturregelung auf PWM umgestellt (PIN2 & PIN3).
 Vorarbeit Ansteuerung Zugmotor, Zugmotor erhält einen eigenen UNO mit CNC Shield für die Erweiterung der Aufwicklung.
@@ -34,7 +37,7 @@ Prameterspeicherung muss noch geprüft werden
 ---------------------------------------------------------------------
 
 v0.8
-08.12.2019      15:00
+08.12.2019
 
 Variable *cError_text[] angelegt. Bitte mit weiteren Texten füllen.
 EEPROM Speichern auf EEPROM Updaten umgestellt
@@ -44,7 +47,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.7
-01.12.2019      00:12
+01.12.2019
 
 Datensatzstruktur neu angelegt und vereinfacht
 EEPROM Laden und Speichern fertiggestellt
@@ -56,7 +59,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.6
-25.11.2019      20:15
+25.11.2019
 
 EEprom Zugriff teilweise integriert
 EEPROM.h includiert
@@ -66,7 +69,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.5
-21.11.2019      20:45
+21.11.2019
 
 Alle Dateien (außer Videos) auf https://github.com/Jknaebel68/Extruder verschoben
 FastPID.h und Wire.h includiert
@@ -78,7 +81,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.4
-19.11.2019      20:12
+19.11.2019
 
 MAX6675.h und SimpleTimer.h includiert
 getTemp() Funktion zur Temperaturerfassung erstellt
@@ -89,7 +92,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.3
-10.11.2019      17:50
+10.11.2019
 
 Schnittstellen und Datenübertragung zwischen Arduino und HMI programmiert und getestet
 Aktualisierungsrate der Anzeige alle 500ms einen Zyklus lang. 
@@ -100,7 +103,7 @@ E/A Definitionen eingefügt
 ---------------------------------------------------------------------
 
 v0.2
-05.11.2019      20:08
+05.11.2019
 
 Code aufgehübscht;
 überflüssige Libraries entfernt;
@@ -110,7 +113,7 @@ Kompilieren -ok-
 ---------------------------------------------------------------------
 
 v0.1
-04.11.2019      19:15
+04.11.2019
 
 Ideen von Jörg zur Dateiablage übernommen und eingefügt;
 

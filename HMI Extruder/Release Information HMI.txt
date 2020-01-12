@@ -1,7 +1,10 @@
 Release Informationen zu "Extruder_HMI.HMI"
 
+
+---------------------------------------------------------------------
+
 v0.6
-12.01.2020    21.30
+12.01.2020
 
 Neugestalltung Page 1 Schieberegler gegen NUM Eingabe geändert.
 Page 0 verfügt nun über Textfeld t100 zur Fehleranzeige dies kann auf alle Seiten erweitert werden
@@ -9,14 +12,17 @@ mit den Aufruf t100.setText.
 Graph ist voll funktionsfähig, kleinere Optimierung notwendig, Variablen im Graph sind global
 und können z.B. sobald die Heizung ein ist beschrieben werden.
 
+---------------------------------------------------------------------
 
 v0.5
 2.1.2020
 
 Fehlerbehebung Datensatzverwaltung Funktion ist nun gegeben
 
+---------------------------------------------------------------------
+
 v0.4
-28.11.2019    20.45
+28.11.2019
 
 Datensatzseite 1 Entwurf
 Fehler auf Page1, es erfolgt keine Istanzeige.
@@ -25,7 +31,7 @@ Ursache ist ein fehlerhafter Seitenwechsel von Page 0 auf den Istanzeigen   <---
 ---------------------------------------------------------------------
 
 v0.2
-10.11.2019    17.50
+10.11.2019
 
 Schnittstellen zwischen Arduino und HMI programmiert
 Button zur Wertübernahme auf Page 2 eingefügt weil das Touch Release beim Slider nicht funktioniert.
@@ -34,7 +40,7 @@ Diverse Korrekturen weil der Haken Send Command vergessen wurde.
 ---------------------------------------------------------------------
 
 v0.1
-04.11.2019     19.15
+04.11.2019
 Ideen von Jörg zur Dateiablage übernommen und eingefügt.
 
 ---------------------------------------------------------------------
