@@ -10,7 +10,8 @@ Temperaturregelung mit neuer Libary PWM gesteuert eingefügt.
 Schwankungen der Temperatur beläuft sich bei 150°C -3 bis 8 Grad, vielleicht noch Feintuning.
 Graph im Nextion wird nun mit Daten gespeist.
 Diverse Umstellungen der Buttonnamen zur besseren Erweiterbarkeit und Übersichtlichkeit,
-z.B. B20 ist nun der erste Button auf Page 2 
+z.B. B20 ist nun der erste Button auf Page 2.
+Anzeige für die Fehler eingefügt beim Timer sek. Blockierung der Antriebe zu erkennen, muss noch entwickelt werden.
 
 
 ---------------------------------------------------------------------
