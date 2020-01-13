@@ -250,29 +250,37 @@ void loop()
 		{
 			HilfsVarFehler = 5;
 		}
-
+		if (MaterialFuellstand >= 220)
+		{
+			HilfsVarFehler = 0;
+		}	
 		// Fehleranzeige für Textfeld t100
 		if (HilfsVarFehler == 0)
 		{
-			t100.setText(cError_text[HilfsVarFehler]);
+			t100.setText(cError_text[0]);
 			t100.Set_background_color_bco(65535);
 		}
 		else if (HilfsVarFehler == 1)
 		{
-			t100.setText(cError_text[HilfsVarFehler]);
+			t100.setText(cError_text[1]);
 			t100.Set_background_color_bco(63978);
 		}
 		else if (HilfsVarFehler == 2)
 		{
-			t100.setText(cError_text[HilfsVarFehler]);
+			t100.setText(cError_text[2]);
 			t100.Set_background_color_bco(63978);
 		}
 		else if (HilfsVarFehler == 3)
 		{
-			t100.setText(cError_text[HilfsVarFehler]);
+			t100.setText(cError_text[3]);
 			t100.Set_background_color_bco(63978);
 		}
 		else if (HilfsVarFehler == 4)
+		{
+			t100.setText(cError_text[HilfsVarFehler]);
+			t100.Set_background_color_bco(63978);
+		}
+		else if (HilfsVarFehler == 5)
 		{
 			t100.setText(cError_text[HilfsVarFehler]);
 			t100.Set_background_color_bco(63978);
