@@ -209,7 +209,7 @@ void setup()
 	n3.attachPush(n3PushCallback, &n3);
 	n4.attachPush(n4PushCallback, &n4);
 	n5.attachPush(n5PushCallback, &n5);
-    n6.attachPush(n6PushCallback, &n6);
+    	n6.attachPush(n6PushCallback, &n6);
 
 	/*------------------------------------
 	  Platzhalter für weitere Number anzeigen mit Touchfunktion
@@ -230,18 +230,52 @@ void loop()
 		SwitchCaseAnzeige();
 		timer_1.reset();
 		MaterialFuellstand = map(analogRead(pMaterialFuelstand), 0, 1023, 0, 255);
-		// Fehleranzeige Materialfüllstand ist gering
-		if (MaterialFuellstand <= 50 && HilfsVarFehler == 0)
+		if (iTmpBlck >= (iTmpBlck * 1.10))		// Fehler Übertemperatur Heizblock
 		{
 			HilfsVarFehler = 1;
-			t100.setText(cError_text[4]);
+		}
+		if (iTmpDs >= (iTmpDs * 1.10))			// Fehler Übertemperatur Heizdüse
+		{
+			HilfsVarFehler = 2;
+		}
+		// if ()			// Fehler Antrieb Extruder Blockiert  -- Under Construction ---
+		// {
+		// 	HilfsVarFehler = 3;
+		// }
+		// if ()			// Fehler Antrieb Zugmotor blockiert  -- Under Construction ---
+		// {
+		// 	HilfsVarFehler = 4;
+		// }
+		if (MaterialFuellstand <= 50)
+		{
+			HilfsVarFehler = 5;
+		}
+
+		// Fehleranzeige für Textfeld t100
+		if (HilfsVarFehler == 0)
+		{
+			t100.setText(cError_text[HilfsVarFehler]);
+			t100.Set_background_color_bco(65535);
+		}
+		else if (HilfsVarFehler == 1)
+		{
+			t100.setText(cError_text[HilfsVarFehler]);
 			t100.Set_background_color_bco(63978);
 		}
-		else if (MaterialFuellstand >= 220 && HilfsVarFehler == 1)
+		else if (HilfsVarFehler == 2)
 		{
-			t100.setText("");
-			t100.Set_background_color_bco(65535);
-			HilfsVarFehler = 0;
+			t100.setText(cError_text[HilfsVarFehler]);
+			t100.Set_background_color_bco(63978);
+		}
+		else if (HilfsVarFehler == 3)
+		{
+			t100.setText(cError_text[HilfsVarFehler]);
+			t100.Set_background_color_bco(63978);
+		}
+		else if (HilfsVarFehler == 4)
+		{
+			t100.setText(cError_text[HilfsVarFehler]);
+			t100.Set_background_color_bco(63978);
 		}
    	}
 
